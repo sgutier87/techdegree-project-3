@@ -45,7 +45,8 @@ design.on('click', function() {
 
 
 activities.on('change', function() {
-    if (this.checked) {
+    const main = $('input[name="all"]');
+    if (main.checked) {
         console.log('hi');
     }
 });
