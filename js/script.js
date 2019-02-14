@@ -3,6 +3,8 @@ const nameInput = $('#name');
 const otherText = $('#other-title');
 const title = $('#title');
 const design = $('#design');
+const total = $('#total');
+const activities = $('.activities');
 
 
 //Sets 'focus' on first text field
@@ -12,6 +14,10 @@ nameInput.focus();
 
 //Hides 'other-title' text field
 otherText.hide();
+
+
+//Hides 'total' h3
+total.hide();
 
 
 //Event that toggles 'other-title' text when 'other' is clicked
@@ -34,6 +40,13 @@ design.on('click', function() {
         $('option[value="cornflowerblue"]').toggle();
         $('option[value="darkslategrey"]').toggle();
         $('option[value="gold"]').toggle();
+    }
+});
+
+
+activities.on('change', function() {
+    if (this.checked) {
+        console.log('hi');
     }
 });
 
