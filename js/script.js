@@ -45,9 +45,10 @@ design.on('click', function() {
 
 
 activities.on('change', function() {
-    const main = $('input[name="all"]');
-    if (main.checked) {
-        console.log('hi');
+    if (this.checked) {
+        total.toggle();
+    } else {
+        total.hide();
     }
 });
 
