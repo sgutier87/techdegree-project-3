@@ -4,7 +4,7 @@ const otherText = $('#other-title');
 const title = $('#title');
 const design = $('#design');
 const total = $('#total');
-const activities = $('.activities');
+const activities = $('.activities input');
 
 
 //Sets 'focus' on first text field
@@ -43,12 +43,12 @@ design.on('click', function() {
     }
 });
 
-
+//http://api.jquery.com/prop/
 activities.on('change', function() {
-    if (this.checked) {
-        total.toggle();
+    if (this.checked && this.name === "js-frameworks") {
+        $('#express').prop("disabled", true);
     } else {
-        total.hide();
+        $('#express').prop("disabled", false);
     }
 });
 
