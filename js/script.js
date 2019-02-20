@@ -3,8 +3,10 @@ const nameInput = $('#name');
 const otherText = $('#other-title');
 const title = $('#title');
 const design = $('#design');
-const total = $('#total');
-const activities = $('.activities input');
+const checkBoxes = $('.activities input');
+const activities = $('.activities');
+const $total = $('<h3>Total: </h3>');
+let count = 0;
 
 
 //Sets 'focus' on first text field
@@ -16,8 +18,21 @@ nameInput.focus();
 otherText.hide();
 
 
-//Hides 'total' h3
-total.hide();
+//Appends and hides '$total' element
+activities.append($total);
+$total.hide();
+
+
+//Function to show '$total' element and change text with a given 'count'
+const showTotal = (count) => {
+    if (count) {
+        $total.text('Total: $' + count);
+        $total.show();
+    } else {
+        $total.text('Total: $' + count);
+        $total.hide();
+    }
+};
 
 
 //Event that toggles 'other-title' text when 'other' is clicked
@@ -44,67 +59,96 @@ design.on('click', function() {
 });
 
 
+//Event that disables checkboxes if conflicting conference is checked
+//Adds or subtracts from 'count'and calls 'showTotal'
 //http://api.jquery.com/prop/
-activities.on('change', function() {
-    const main = $('input[name="all"]');
+checkBoxes.on('change', function() {
     const jsFrameworks = $('input[name="js-frameworks"]');
     const express = $('input[name="express"]');
     const jsLibs = $('input[name="js-libs"]');
     const node = $('input[name="node"]');
-    let count = 0;
 
-
+    //Adds or subtracts 200 from 'count'and calls 'showTotal' when 'Main Conference' is checked
     if (this.checked && this.name === "all") {
         count += 200;
+        showTotal(count);
     } else if (this.checked === false && this.name === "all") {
         count -= 200;
+        showTotal(count);
     }
 
-
     //Disables 'Express Workshop' if 'JavaScript Frameworks Workshop' is selected
+    //Adds or subtracts 100 from 'count'and calls 'showTotal'
     if (this.checked && this.name === "js-frameworks") {
         express.prop("disabled", true);
         express.parent().css( "color", "grey" );
+        count += 100;
+        showTotal(count);
     } else if (this.checked === false && this.name === "js-frameworks") {
         express.prop("disabled", false);
         express.parent().css( "color", "black" );
+        count -= 100;
+        showTotal(count);
     }
 
-
     //Disables 'JavaScript Frameworks Workshop' if 'Express Workshop' is selected
+    //Adds or subtracts 100 from 'count'and calls 'showTotal'
     if (this.checked && this.name === "express") {
         jsFrameworks.prop("disabled", true);
         jsFrameworks.parent().css( "color", "grey" );
+        count += 100;
+        showTotal(count);
     } else if (this.checked === false && this.name === "express") {
         jsFrameworks.prop("disabled", false);
         jsFrameworks.parent().css( "color", "black" );
+        count -= 100;
+        showTotal(count);
     }
     
-
     //Disables 'Node.js Workshop' if 'JavaScript Libraries Workshop' is selected
+    //Adds or subtracts 100 from 'count'and calls 'showTotal'
     if (this.checked && this.name === "js-libs") {
         node.prop("disabled", true);
         node.parent().css( "color", "grey" );
+        count += 100;
+        showTotal(count);
     } else if (this.checked === false && this.name === "js-libs") {
         node.prop("disabled", false);
         node.parent().css( "color", "black" );
+        count -= 100;
+        showTotal(count);
     }
 
-
     //Disables 'JavaScript Libraries Workshop' if 'Node.js Workshop' is selected
+    //Adds or subtracts 100 from 'count'and calls 'showTotal'
     if (this.checked && this.name === "node") {
         jsLibs.prop("disabled", true);
         jsLibs.parent().css( "color", "grey" );
+        count += 100;
+        showTotal(count);
     } else if (this.checked === false && this.name === "node") {
         jsLibs.prop("disabled", false);
         jsLibs.parent().css( "color", "black" );
+        count -= 100;
+        showTotal(count);
     }
 
+    //Adds or subtracts 100 from 'count'and calls 'showTotal' when 'Build tools Workshop' is checked
+    if (this.checked && this.name === "build-tools") {
+        count += 100;
+        showTotal(count);
+    } else if (this.checked === false && this.name === "build-tools") {
+        count -= 100;
+        showTotal(count);
+    }
 
-    if (count) {
-        total.show();
-    } else {
-        total.hide();
+    //Adds or subtracts 100 from 'count'and calls 'showTotal' when 'npm Workshop' is checked
+    if (this.checked && this.name === "npm") {
+        count += 100;
+        showTotal(count);
+    } else if (this.checked === false && this.name === "npm") {
+        count -= 100;
+        showTotal(count);
     }
 });
 
