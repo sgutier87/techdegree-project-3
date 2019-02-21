@@ -7,6 +7,10 @@ const checkBoxes = $('.activities input');
 const activities = $('.activities');
 const $total = $('<h3>Total: </h3>');
 let count = 0;
+const payment = $('#payment');
+const credit = $('#credit-card');
+const payPal = $('#payPal');
+const bitCoin = $('#bitCoin');
 
 
 //Sets 'focus' on first text field
@@ -21,6 +25,11 @@ otherText.hide();
 //Appends and hides '$total' element
 activities.append($total);
 $total.hide();
+
+
+//Hides 'payPal' and 'bitCoin' divs
+payPal.hide();
+bitCoin.hide();
 
 
 //Function to show '$total' element and change text with a given 'count'
@@ -149,6 +158,23 @@ checkBoxes.on('change', function() {
     } else if (this.checked === false && this.name === "npm") {
         count -= 100;
         showTotal(count);
+    }
+});
+
+
+payment.on('click', function () {
+    if (this.value === 'credit card') {
+        credit.show();
+        payPal.hide();
+        bitCoin.hide();
+    } else if (this.value === 'paypal') {
+        payPal.show();
+        credit.hide();
+        bitCoin.hide();
+    } else if (this.value === 'bitcoin') {
+        bitCoin.show();
+        credit.hide();
+        payPal.hide()
     }
 });
 
