@@ -11,6 +11,12 @@ const payment = $('#payment');
 const credit = $('#credit-card');
 const payPal = $('#payPal');
 const bitCoin = $('#bitCoin');
+const select = $('option[value="select_method"]');
+const submit = $('button[type"submit"]');
+
+
+//Regex Expressions
+const regName = /[a-z]/;
 
 
 //Sets 'focus' on first text field
@@ -30,6 +36,9 @@ $total.hide();
 //Hides 'payPal' and 'bitCoin' divs
 payPal.hide();
 bitCoin.hide();
+
+
+select.prop("disabled", true);
 
 
 //Function to show '$total' element and change text with a given 'count'
@@ -162,6 +171,7 @@ checkBoxes.on('change', function() {
 });
 
 
+//Event that displays correct payment div according to select menu option chosen
 payment.on('click', function () {
     if (this.value === 'credit card') {
         credit.show();
@@ -177,6 +187,11 @@ payment.on('click', function () {
         payPal.hide()
     }
 });
+
+
+//
+
+
 
 
 
