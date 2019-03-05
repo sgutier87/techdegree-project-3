@@ -12,11 +12,11 @@ const credit = $('#credit-card');
 const payPal = $('#payPal');
 const bitCoin = $('#bitCoin');
 const select = $('option[value="select_method"]');
-const submit = $('button[type"submit"]');
+const submit = $('button[type="submit"]');
 
 
 //Regex Expressions
-const regName = /[a-z]/;
+const regName = /[a-z]/i;
 
 
 //Sets 'focus' on first text field
@@ -190,7 +190,18 @@ payment.on('click', function () {
 
 
 //
+submit.on('click', function () {
+    const name = $('#name').val();
+    const nameVal = regName.test(name);
 
+    if (nameVal === false) {
+        submit.attr('type', 'button');
+        $('#name').css('border-color', 'red');
+        $('label[for="name"]').css('color', 'red');
+    } else {
+        submit.attr('type', 'submit');
+    }
+});
 
 
 
