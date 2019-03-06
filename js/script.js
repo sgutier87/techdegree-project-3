@@ -17,6 +17,7 @@ const submit = $('button[type="submit"]');
 
 //Regex Expressions
 const regName = /[a-z]/i;
+const regEmail = /[a-z]@[.com]/i;
 
 
 //Sets 'focus' on first text field
@@ -193,6 +194,9 @@ payment.on('click', function () {
 submit.on('click', function () {
     const name = $('#name').val();
     const nameVal = regName.test(name);
+    
+    // const email = $('#mail').val();
+    // const emailVal = regEmail.text(email);
 
     if (nameVal === false) {
         submit.attr('type', 'button');
@@ -201,6 +205,14 @@ submit.on('click', function () {
     } else {
         submit.attr('type', 'submit');
     }
+
+    // if (emailVal === false) {
+    //     submit.attr('type', 'button');
+    //     $('#mail').css('border-color', 'red');
+    //     $('label[for="mail"]').css('color', 'red');
+    // } else {
+    //     submit.attr('type', 'submit');
+    // }
 });
 
 
