@@ -50,6 +50,16 @@ const showTotal = (count) => {
 };
 
 
+const isValidName = (name) => {
+    return /^[a-z]+$/i.test(name);
+}
+
+
+const isValidEmail = (email) => {
+    return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
+}
+
+
 //Event that toggles 'other-title' text when 'other' is clicked
 title.on('click', function() {
     if (this.value === 'other') {
@@ -188,18 +198,23 @@ payment.on('click', function () {
 
 //
 submit.on('click', function () {
-    const regName = /^[a-z]+$/i;
     const name = $('#name').val();
-    const isValidName = regName.test(name);
+    const email = $('#mail').val();
 
-    // const regEmail = /^[^@]+@[^@.]+\.[a-z]+$/i;
-    // const email = $('#mail').val();
-    // const isValidEmail = regEmail.text(email);
-
-    if (isValidName === false) {
+    if (isValidName(name) === false) {
         submit.attr('type', 'button');
         $('#name').css('border-color', 'red');
         $('label[for="name"]').css('color', 'red');
+    } else {
+        $('#name').css('border', 'none');
+        $('label[for="name"]').css('color', 'black');
+        submit.attr('type', 'submit');
+    }
+
+    if (isValidEmail(email) === false) {
+        submit.attr('type', 'button');
+        $('#mail').css('border-color', 'red');
+        $('label[for="mail"]').css('color', 'red');
     } else {
         submit.attr('type', 'submit');
     }
