@@ -15,10 +15,6 @@ const select = $('option[value="select_method"]');
 const submit = $('button[type="submit"]');
 
 
-//Regex Expressions
-const regName = /[a-z]/i;
-const regEmail = /[a-z]@[.com]/i;
-
 
 //Sets 'focus' on first text field
 //https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus
@@ -192,27 +188,21 @@ payment.on('click', function () {
 
 //
 submit.on('click', function () {
+    const regName = /^[a-z]+$/i;
     const name = $('#name').val();
-    const nameVal = regName.test(name);
-    
-    // const email = $('#mail').val();
-    // const emailVal = regEmail.text(email);
+    const isValidName = regName.test(name);
 
-    if (nameVal === false) {
+    // const regEmail = /^[^@]+@[^@.]+\.[a-z]+$/i;
+    // const email = $('#mail').val();
+    // const isValidEmail = regEmail.text(email);
+
+    if (isValidName === false) {
         submit.attr('type', 'button');
         $('#name').css('border-color', 'red');
         $('label[for="name"]').css('color', 'red');
     } else {
         submit.attr('type', 'submit');
     }
-
-    // if (emailVal === false) {
-    //     submit.attr('type', 'button');
-    //     $('#mail').css('border-color', 'red');
-    //     $('label[for="mail"]').css('color', 'red');
-    // } else {
-    //     submit.attr('type', 'submit');
-    // }
 });
 
 
