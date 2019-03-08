@@ -198,26 +198,38 @@ payment.on('click', function () {
 
 //
 submit.on('click', function () {
-    const name = $('#name').val();
-    const email = $('#mail').val();
+    // const name = $('#name').val();
+    // const email = $('#mail').val();
 
-    if (isValidName(name) === false) {
-        submit.attr('type', 'button');
-        $('#name').css('border-color', 'red');
-        $('label[for="name"]').css('color', 'red');
-    } else {
-        $('#name').css('border', 'none');
-        $('label[for="name"]').css('color', 'black');
-        submit.attr('type', 'submit');
-    }
+    // if (isValidName(name) === false) {
+    //     $('#name').css('border-color', 'red');
+    //     $('label[for="name"]').css('color', 'red');
+    //     submit.attr('type', 'button');
+    // } else {
+    //     $('#name').css('border', 'none');
+    //     $('label[for="name"]').css('color', 'black');
+    //     submit.attr('type', 'submit');
+    // }
 
-    if (isValidEmail(email) === false) {
-        submit.attr('type', 'button');
-        $('#mail').css('border-color', 'red');
-        $('label[for="mail"]').css('color', 'red');
-    } else {
-        submit.attr('type', 'submit');
-    }
+    // if (isValidEmail(email) === false) {
+    //     $('#mail').css('border-color', 'red');
+    //     $('label[for="mail"]').css('color', 'red');
+    //     submit.attr('type', 'button');
+    // } else {
+    //     $('#mail').css('border', 'none');
+    //     $('label[for="mail"]').css('color', 'black');
+    //     submit.attr('type', 'submit');
+    // }
+
+    checkBoxes.each(function() {
+        if (this.checked) {
+            $('.activites legend').text('HI');
+            submit.attr('type', 'button');
+        } //else {
+        //     $('.activites legend').css('color', 'black');
+        //     submit.attr('type', 'submit');
+        // }
+    });
 });
 
 
