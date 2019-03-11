@@ -60,6 +60,10 @@ const isValidEmail = (email) => {
     return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
 }
 
+const isValidCredit = (credit) => {
+    return /\b\d{13,16}\b/.test(credit);
+}
+
 
 //Event that toggles 'other-title' text when 'other' is clicked
 title.on('click', function() {
@@ -199,10 +203,12 @@ payment.on('click', function () {
 
 //Submit Button Event
 submit.on('click', function () {
-    submit.attr('type', 'button');
-    const checks = 0;
+    let checks = 0;
     const name = $('#name').val();
     const email = $('#mail').val();
+    const credit = $('#cc-num').val();
+
+    submit.attr('type', 'button');
 
     //Name Validation
     if (isValidName(name) === false) {
@@ -235,8 +241,24 @@ submit.on('click', function () {
         }
     });
 
+    //Credit Card
+    if (payment.val() === 'credit card') {
+        if (isValidCredit(credit) === false) {
+            $('#cc-num').css('border-color', 'red');
+            $('label[for="#cc-num"]').css('color', 'red');
+        } else {
+            $('#cc-num').css('border', 'none');
+            $('label[for="#cc-num"]').css('color', 'black');
+            checks += 1;
+        }
+
+        if (checks === 4) {
+            submit.attr('type', 'submit');
+        }
+    }
+
     //Submit
-    if (checks = 3) {
+    if (checks === 3) {
         submit.attr('type', 'submit');
     }
 });
