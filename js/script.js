@@ -5,6 +5,7 @@ const title = $('#title');
 const design = $('#design');
 const checkBoxes = $('.activities input');
 const activities = $('.activities');
+const activitesLabels = $('.activities label');
 const $total = $('<h3>Total: </h3>');
 let count = 0;
 const payment = $('#payment');
@@ -196,39 +197,43 @@ payment.on('click', function () {
 });
 
 
-//
+//Submit Button Event
 submit.on('click', function () {
-    // const name = $('#name').val();
-    // const email = $('#mail').val();
+    const name = $('#name').val();
+    const email = $('#mail').val();
 
-    // if (isValidName(name) === false) {
-    //     $('#name').css('border-color', 'red');
-    //     $('label[for="name"]').css('color', 'red');
-    //     submit.attr('type', 'button');
-    // } else {
-    //     $('#name').css('border', 'none');
-    //     $('label[for="name"]').css('color', 'black');
-    //     submit.attr('type', 'submit');
-    // }
+    //Name Validation
+    if (isValidName(name) === false) {
+        $('#name').css('border-color', 'red');
+        $('label[for="name"]').css('color', 'red');
+        submit.attr('type', 'button');
+    } else {
+        $('#name').css('border', 'none');
+        $('label[for="name"]').css('color', 'black');
+        submit.attr('type', 'submit');
+    }
 
-    // if (isValidEmail(email) === false) {
-    //     $('#mail').css('border-color', 'red');
-    //     $('label[for="mail"]').css('color', 'red');
-    //     submit.attr('type', 'button');
-    // } else {
-    //     $('#mail').css('border', 'none');
-    //     $('label[for="mail"]').css('color', 'black');
-    //     submit.attr('type', 'submit');
-    // }
-
+    //Email Validation
+    if (isValidEmail(email) === false) {
+        $('#mail').css('border-color', 'red');
+        $('label[for="mail"]').css('color', 'red');
+        submit.attr('type', 'button');
+    } else {
+        $('#mail').css('border', 'none');
+        $('label[for="mail"]').css('color', 'black');
+        submit.attr('type', 'submit');
+    }
+    
+    //Checkboxes
     checkBoxes.each(function() {
+        activitesLabels.css('color', 'red');
+        submit.attr('type', 'button');
+
         if (this.checked) {
-            $('.activites legend').text('HI');
-            submit.attr('type', 'button');
-        } //else {
-        //     $('.activites legend').css('color', 'black');
-        //     submit.attr('type', 'submit');
-        // }
+            activitesLabels.css('color', 'black');
+            submit.attr('type', 'submit');
+            return false;
+        }
     });
 });
 
