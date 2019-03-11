@@ -199,6 +199,8 @@ payment.on('click', function () {
 
 //Submit Button Event
 submit.on('click', function () {
+    submit.attr('type', 'button');
+    const checks = 0;
     const name = $('#name').val();
     const email = $('#mail').val();
 
@@ -206,35 +208,37 @@ submit.on('click', function () {
     if (isValidName(name) === false) {
         $('#name').css('border-color', 'red');
         $('label[for="name"]').css('color', 'red');
-        submit.attr('type', 'button');
     } else {
         $('#name').css('border', 'none');
         $('label[for="name"]').css('color', 'black');
-        submit.attr('type', 'submit');
+        checks += 1;
     }
 
     //Email Validation
     if (isValidEmail(email) === false) {
         $('#mail').css('border-color', 'red');
         $('label[for="mail"]').css('color', 'red');
-        submit.attr('type', 'button');
     } else {
         $('#mail').css('border', 'none');
         $('label[for="mail"]').css('color', 'black');
-        submit.attr('type', 'submit');
+        checks += 1;
     }
     
     //Checkboxes
     checkBoxes.each(function() {
         activitesLabels.css('color', 'red');
-        submit.attr('type', 'button');
 
         if (this.checked) {
             activitesLabels.css('color', 'black');
-            submit.attr('type', 'submit');
+            checks += 1;
             return false;
         }
     });
+
+    //Submit
+    if (checks = 3) {
+        submit.attr('type', 'submit');
+    }
 });
 
 
