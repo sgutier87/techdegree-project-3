@@ -91,12 +91,14 @@ title.on('click', function() {
 //Event that removes 'color' options on 'design' click
 design.on('click', function() {
     if (this.value === 'js puns') {
+        $('#color').val('cornflowerblue');
         $('option[value="tomato"]').toggle();
         $('option[value="steelblue"]').toggle();
         $('option[value="dimgrey"]').toggle();
     }
 
     if (this.value === 'heart js') {
+        $('#color').val('tomato');
         $('option[value="cornflowerblue"]').toggle();
         $('option[value="darkslategrey"]').toggle();
         $('option[value="gold"]').toggle();
