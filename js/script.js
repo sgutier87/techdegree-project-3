@@ -211,7 +211,7 @@ payment.on('click', function () {
     } else if (this.value === 'bitcoin') {
         bitCoin.show();
         credit.hide();
-        payPal.hide()
+        payPal.hide();
     }
 });
 
