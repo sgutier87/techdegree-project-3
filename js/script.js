@@ -1,4 +1,4 @@
-//Global variables
+////****Global variables****\\\\
 const nameInput = $('#name');
 const otherText = $('#other-title');
 const title = $('#title');
@@ -12,8 +12,31 @@ const payment = $('#payment');
 const credit = $('#credit-card');
 const payPal = $('#payPal');
 const bitCoin = $('#bitCoin');
-const select = $('option[value="select_method"]');
+const selectOption = $('option[value="select_method"]');
 const submit = $('button[type="submit"]');
+
+
+
+////****Validators****\\\\
+const isValidName = (name) => {
+    return /^[a-z]+$/i.test(name);
+}
+
+const isValidEmail = (email) => {
+    return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
+}
+
+const isValidCredit = (credit) => {
+    return /\b\d{13,16}\b/.test(credit);
+}
+
+const isValidZip = (zip) => {
+    return /\d{5}/.test(zip);
+}
+
+const isValidCvv = (cvv) => {
+    return /^[0-9]{3}$/.test(cvv);
+}
 
 
 
@@ -36,7 +59,13 @@ payPal.hide();
 bitCoin.hide();
 
 
-select.prop("disabled", true);
+//Starts 'Payment' option on 'Credit Card'
+payment.val('credit card');
+
+
+//Disables the 'select_method' option
+selectOption.prop("disabled", true);
+
 
 
 //Function to show '$total' element and change text with a given 'count'
@@ -49,20 +78,6 @@ const showTotal = (count) => {
         $total.hide();
     }
 };
-
-
-const isValidName = (name) => {
-    return /^[a-z]+$/i.test(name);
-}
-
-
-const isValidEmail = (email) => {
-    return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
-}
-
-const isValidCredit = (credit) => {
-    return /\b\d{13,16}\b/.test(credit);
-}
 
 
 //Event that toggles 'other-title' text when 'other' is clicked
@@ -207,27 +222,29 @@ submit.on('click', function () {
     const name = $('#name').val();
     const email = $('#mail').val();
     const credit = $('#cc-num').val();
+    const zip = $('#zip').val();
+    const cvv = $('#cvv').val();
 
     submit.attr('type', 'button');
 
     //Name Validation
-    if (isValidName(name) === false) {
-        $('#name').css('border-color', 'red');
-        $('label[for="name"]').css('color', 'red');
-    } else {
-        $('#name').css('border', 'none');
+    if (isValidName(name)) {
+        $('#name').css('border-color', 'black');
         $('label[for="name"]').css('color', 'black');
         checks += 1;
+    } else {
+        $('#name').css('border-color', 'red');
+        $('label[for="name"]').css('color', 'red');
     }
 
     //Email Validation
-    if (isValidEmail(email) === false) {
-        $('#mail').css('border-color', 'red');
-        $('label[for="mail"]').css('color', 'red');
-    } else {
-        $('#mail').css('border', 'none');
+    if (isValidEmail(email)) {
+        $('#mail').css('border-color', 'black');
         $('label[for="mail"]').css('color', 'black');
         checks += 1;
+    } else {
+        $('#mail').css('border-color', 'red');
+        $('label[for="mail"]').css('color', 'red');
     }
     
     //Checkboxes
@@ -243,22 +260,40 @@ submit.on('click', function () {
 
     //Credit Card
     if (payment.val() === 'credit card') {
-        if (isValidCredit(credit) === false) {
-            $('#cc-num').css('border-color', 'red');
-            $('label[for="#cc-num"]').css('color', 'red');
-        } else {
-            $('#cc-num').css('border', 'none');
-            $('label[for="#cc-num"]').css('color', 'black');
+        if (isValidCredit(credit)) {
+            $('#cc-num').css('border-color', 'black');
+            $('label[for="cc-num"]').css('color', 'black');
             checks += 1;
+        } else {
+            $('#cc-num').css('border-color', 'red');
+            $('label[for="cc-num"]').css('color', 'red');
         }
 
-        if (checks === 4) {
-            submit.attr('type', 'submit');
+        if (isValidZip(zip)) {
+            $('#zip').css('border-color', 'black');
+            $('label[for="zip"]').css('color', 'black');
+            checks += 1;
+        } else {
+            $('#zip').css('border-color', 'red');
+            $('label[for="zip"]').css('color', 'red');
+        }
+
+        if (isValidCvv(cvv)) {
+            $('#cvv').css('border-color', 'black');
+            $('label[for="cvv"]').css('color', 'black');
+            checks += 1;
+        } else {
+            $('#cvv').css('border-color', 'red');
+            $('label[for="cvv"]').css('color', 'red');
         }
     }
 
     //Submit
-    if (checks === 3) {
+    if (payment.val() === 'credit card' && checks === 6) {
+        submit.attr('type', 'submit');
+    }
+
+    if (payment.val() !== 'credit card' && checks === 3) {
         submit.attr('type', 'submit');
     }
 });
