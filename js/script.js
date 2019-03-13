@@ -1,4 +1,5 @@
 ////****Global variables****\\\\
+                                        
 const nameInput = $('#name');
 const otherText = $('#other-title');
 const title = $('#title');
@@ -18,6 +19,7 @@ const submit = $('button[type="submit"]');
 
 
 ////****Validators****\\\\
+
 const isValidName = (name) => {
     return /^[a-z]+$/i.test(name);
 }
@@ -31,7 +33,7 @@ const isValidCredit = (credit) => {
 }
 
 const isValidZip = (zip) => {
-    return /\d{5}/.test(zip);
+    return /^[0-9]{5}$/.test(zip);
 }
 
 const isValidCvv = (cvv) => {
@@ -41,32 +43,29 @@ const isValidCvv = (cvv) => {
 
 
 //Sets 'focus' on first text field
-//https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus
+//Learned how to set 'focus' from https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus
 nameInput.focus();
-
 
 //Hides 'other-title' text field
 otherText.hide();
-
 
 //Appends and hides '$total' element
 activities.append($total);
 $total.hide();
 
-
 //Hides 'payPal' and 'bitCoin' divs
 payPal.hide();
 bitCoin.hide();
 
-
 //Starts 'Payment' option on 'Credit Card'
 payment.val('credit card');
-
 
 //Disables the 'select_method' option
 selectOption.prop("disabled", true);
 
 
+
+////****Functions****\\\\
 
 //Function to show '$total' element and change text with a given 'count'
 const showTotal = (count) => {
@@ -79,6 +78,9 @@ const showTotal = (count) => {
     }
 };
 
+
+
+////****Event Handlers****\\\\
 
 //Event that toggles 'other-title' text when 'other' is clicked
 title.on('click', function() {
@@ -108,7 +110,7 @@ design.on('click', function() {
 
 //Event that disables checkboxes if conflicting conference is checked
 //Adds or subtracts from 'count'and calls 'showTotal'
-//http://api.jquery.com/prop/
+//Learned 'prop()' from http://api.jquery.com/prop/
 checkBoxes.on('change', function() {
     const jsFrameworks = $('input[name="js-frameworks"]');
     const express = $('input[name="express"]');
@@ -200,7 +202,7 @@ checkBoxes.on('change', function() {
 });
 
 
-//Event that displays correct payment div according to select menu option chosen
+//Event that displays correct payment 'div' according to select menu option 'clicked'
 payment.on('click', function () {
     if (this.value === 'credit card') {
         credit.show();
@@ -218,7 +220,7 @@ payment.on('click', function () {
 });
 
 
-//Submit Button Event
+//Event that checks that all form element are correctly filled out when 'Submit' is clicked
 submit.on('click', function () {
     let checks = 0;
     const name = $('#name').val();
@@ -227,9 +229,11 @@ submit.on('click', function () {
     const zip = $('#zip').val();
     const cvv = $('#cvv').val();
 
+    //Changes Submit button to type 'button' to stop from submiting at start of event
     submit.attr('type', 'button');
 
-    //Name Validation
+    //If 'name' validation is true, border and Label are turned black, and adds 1 to checks counter
+    //Else, border and label are turned red
     if (isValidName(name)) {
         $('#name').css('border-color', 'black');
         $('label[for="name"]').css('color', 'black');
@@ -239,7 +243,8 @@ submit.on('click', function () {
         $('label[for="name"]').css('color', 'red');
     }
 
-    //Email Validation
+    //If 'email' validation is true, border and Label are turned black, and adds 1 to checks counter
+    //Else, border and label are turned red
     if (isValidEmail(email)) {
         $('#mail').css('border-color', 'black');
         $('label[for="mail"]').css('color', 'black');
@@ -249,7 +254,7 @@ submit.on('click', function () {
         $('label[for="mail"]').css('color', 'red');
     }
     
-    //Checkboxes
+    //Loops over all check boxes to check that one is checked, or all turn red
     checkBoxes.each(function() {
         activitesLabels.css('color', 'red');
 
@@ -260,8 +265,10 @@ submit.on('click', function () {
         }
     });
 
-    //Credit Card
+    //If 'credit card' is chosen, checks validation
     if (payment.val() === 'credit card') {
+        //If 'credit' validation is true, border and Label are turned black, and adds 1 to checks counter
+        //Else, border and label are turned red
         if (isValidCredit(credit)) {
             $('#cc-num').css('border-color', 'black');
             $('label[for="cc-num"]').css('color', 'black');
@@ -271,6 +278,8 @@ submit.on('click', function () {
             $('label[for="cc-num"]').css('color', 'red');
         }
 
+        //If 'zip' validation is true, border and Label are turned black, and adds 1 to checks counter
+        //Else, border and label are turned red
         if (isValidZip(zip)) {
             $('#zip').css('border-color', 'black');
             $('label[for="zip"]').css('color', 'black');
@@ -280,6 +289,8 @@ submit.on('click', function () {
             $('label[for="zip"]').css('color', 'red');
         }
 
+        //If 'cvv' validation is true, border and Label are turned black, and adds 1 to checks counter
+        //Else, border and label are turned red
         if (isValidCvv(cvv)) {
             $('#cvv').css('border-color', 'black');
             $('label[for="cvv"]').css('color', 'black');
@@ -290,11 +301,12 @@ submit.on('click', function () {
         }
     }
 
-    //Submit
+    //If 'credit' is chose AND 'check' are 6, Submit button is changed to 'submit' type
     if (payment.val() === 'credit card' && checks === 6) {
         submit.attr('type', 'submit');
     }
 
+    //If 'credit' is Not chose AND 'check' are 3, Submit button is changed to 'submit' type
     if (payment.val() !== 'credit card' && checks === 3) {
         submit.attr('type', 'submit');
     }
