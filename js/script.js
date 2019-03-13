@@ -229,6 +229,15 @@ submit.on('click', function () {
     const zip = $('#zip').val();
     const cvv = $('#cvv').val();
 
+    const $nameMessage = $('<p>You\'re an Idiot</p>');
+    $nameMessage.css('color', 'red');
+
+    const $emailMessage = $('<p>You\'re an Idiot</p>');
+    $emailMessage.css('color', 'red');
+
+    const $checkboxMessage = $('<p>You\'re an Idiot</p>');
+    $checkboxMessage.css('color', 'red');
+
     //Changes Submit button to type 'button' to stop from submiting at start of event
     submit.attr('type', 'button');
 
@@ -239,6 +248,7 @@ submit.on('click', function () {
         $('label[for="name"]').css('color', 'black');
         checks += 1;
     } else {
+        $nameMessage.insertAfter($('label[for="name"]').css('style','inline'));
         $('#name').css('border-color', 'red');
         $('label[for="name"]').css('color', 'red');
     }
@@ -250,6 +260,7 @@ submit.on('click', function () {
         $('label[for="mail"]').css('color', 'black');
         checks += 1;
     } else {
+        $emailMessage.insertAfter($('label[for="mail"]'));
         $('#mail').css('border-color', 'red');
         $('label[for="mail"]').css('color', 'red');
     }
@@ -257,6 +268,7 @@ submit.on('click', function () {
     //Loops over all check boxes to check that one is checked, or all turn red
     checkBoxes.each(function() {
         activitesLabels.css('color', 'red');
+        $checkboxMessage.insertAfter($('.activities legend'));
 
         if (this.checked) {
             activitesLabels.css('color', 'black');
