@@ -6,7 +6,7 @@ const title = $('#title');
 const design = $('#design');
 const checkBoxes = $('.activities input');
 const activities = $('.activities');
-const activitesLabels = $('.activities label');
+const activitesLegend = $('.activities legend');
 const $total = $('<h3>Total: </h3>');
 let count = 0;
 const payment = $('#payment');
@@ -229,13 +229,13 @@ submit.on('click', function () {
     const zip = $('#zip').val();
     const cvv = $('#cvv').val();
 
-    const $nameMessage = $('<p>You\'re an Idiot</p>');
+    const $nameMessage = $('<p>Please enter your name</p>').css('display','inline');
     $nameMessage.css('color', 'red');
 
-    const $emailMessage = $('<p>You\'re an Idiot</p>');
+    const $emailMessage = $('<p>Please enter your emil</p>').css('display','inline');
     $emailMessage.css('color', 'red');
 
-    const $checkboxMessage = $('<p>You\'re an Idiot</p>');
+    const $checkboxMessage = $('<p>Please choose at least one activity</p>');
     $checkboxMessage.css('color', 'red');
 
     //Changes Submit button to type 'button' to stop from submiting at start of event
@@ -248,7 +248,7 @@ submit.on('click', function () {
         $('label[for="name"]').css('color', 'black');
         checks += 1;
     } else {
-        $nameMessage.insertAfter($('label[for="name"]').css('style','inline'));
+        $nameMessage.insertAfter($('label[for="name"]'));
         $('#name').css('border-color', 'red');
         $('label[for="name"]').css('color', 'red');
     }
@@ -267,11 +267,11 @@ submit.on('click', function () {
     
     //Loops over all check boxes to check that one is checked, or all turn red
     checkBoxes.each(function() {
-        activitesLabels.css('color', 'red');
-        $checkboxMessage.insertAfter($('.activities legend'));
+        activitesLegend.css('color', 'red');
+        $checkboxMessage.insertAfter(activitesLegend);
 
         if (this.checked) {
-            activitesLabels.css('color', 'black');
+            activitesLegend.css('color', 'black');
             checks += 1;
             return false;
         }
@@ -313,12 +313,12 @@ submit.on('click', function () {
         }
     }
 
-    //If 'credit' is chose AND 'check' are 6, Submit button is changed to 'submit' type
+    //If 'credit' is chosen AND 'check' are 6, Submit button is changed to 'submit' type
     if (payment.val() === 'credit card' && checks === 6) {
         submit.attr('type', 'submit');
     }
 
-    //If 'credit' is Not chose AND 'check' are 3, Submit button is changed to 'submit' type
+    //If 'credit' is Not chosen AND 'check' are 3, Submit button is changed to 'submit' type
     if (payment.val() !== 'credit card' && checks === 3) {
         submit.attr('type', 'submit');
     }
