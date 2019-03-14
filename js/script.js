@@ -7,7 +7,6 @@ const design = $('#design');
 const checkBoxes = $('.activities input');
 const activities = $('.activities');
 const activitesLegend = $('.activities legend');
-const $total = $('<h3>Total: </h3>');
 let count = 0;
 const payment = $('#payment');
 const credit = $('#credit-card');
@@ -15,6 +14,42 @@ const payPal = $('#payPal');
 const bitCoin = $('#bitCoin');
 const selectOption = $('option[value="select_method"]');
 const submit = $('button[type="submit"]');
+
+
+
+////****Created Elements****\\\\
+
+const $total = $('<h3>Total: </h3>');
+
+const $nameMessage = $('<p>Please enter your name</p>').css('display','inline');
+$nameMessage.css('color', 'red');
+$nameMessage.insertAfter($('label[for="name"]'));
+$nameMessage.hide();
+
+const $emailMessage = $('<p>Please enter your emil</p>').css('display','inline');
+$emailMessage.css('color', 'red');
+$emailMessage.insertAfter($('label[for="mail"]'));
+$emailMessage.hide();
+
+const $checkboxMessage = $('<p>Please choose at least one activity</p>');
+$checkboxMessage.css('color', 'red');
+$checkboxMessage.insertAfter(activitesLegend);
+$checkboxMessage.hide();
+
+const $creditMessage = $('<p>Please enter valid credit card number</p>').css('display','inline');
+$creditMessage.css('color', 'red');
+$creditMessage.insertAfter($('label[for="cc-num"]'));
+$creditMessage.hide();
+
+const $zipMessage = $('<p>Please enter valid zip code</p>').css('display','inline');
+$zipMessage.css('color', 'red');
+$zipMessage.insertAfter($('label[for="zip"]'));
+$zipMessage.hide();
+
+const $cvvMessage = $('<p>Please enter valid cvv number</p>').css('display','inline');
+$cvvMessage.css('color', 'red');
+$cvvMessage.insertAfter($('label[for="cvv"]'));
+$cvvMessage.hide();
 
 
 
@@ -229,49 +264,44 @@ submit.on('click', function () {
     const zip = $('#zip').val();
     const cvv = $('#cvv').val();
 
-    const $nameMessage = $('<p>Please enter your name</p>').css('display','inline');
-    $nameMessage.css('color', 'red');
-
-    const $emailMessage = $('<p>Please enter your emil</p>').css('display','inline');
-    $emailMessage.css('color', 'red');
-
-    const $checkboxMessage = $('<p>Please choose at least one activity</p>');
-    $checkboxMessage.css('color', 'red');
-
     //Changes Submit button to type 'button' to stop from submiting at start of event
     submit.attr('type', 'button');
 
-    //If 'name' validation is true, border and Label are turned black, and adds 1 to checks counter
-    //Else, border and label are turned red
+    //If 'name' validation is true, border and Label are turned black, message is hidden, and adds 1 to checks counter
+    //Else, border and label are turned red and message is shown
     if (isValidName(name)) {
         $('#name').css('border-color', 'black');
         $('label[for="name"]').css('color', 'black');
+        $nameMessage.hide();
         checks += 1;
     } else {
-        $nameMessage.insertAfter($('label[for="name"]'));
         $('#name').css('border-color', 'red');
         $('label[for="name"]').css('color', 'red');
+        $nameMessage.show();
     }
 
-    //If 'email' validation is true, border and Label are turned black, and adds 1 to checks counter
-    //Else, border and label are turned red
+    //If 'email' validation is true, border and Label are turned black, message is hidden, and adds 1 to checks counter
+    //Else, border and label are turned red and message is shown
     if (isValidEmail(email)) {
         $('#mail').css('border-color', 'black');
         $('label[for="mail"]').css('color', 'black');
+        $emailMessage.hide();
         checks += 1;
     } else {
-        $emailMessage.insertAfter($('label[for="mail"]'));
         $('#mail').css('border-color', 'red');
         $('label[for="mail"]').css('color', 'red');
+        $emailMessage.show();
     }
     
-    //Loops over all check boxes to check that one is checked, or all turn red
+    //Loops over all check boxes to check that one is checked and hides message
+    //or 'legend' turns red and message is shown
     checkBoxes.each(function() {
         activitesLegend.css('color', 'red');
-        $checkboxMessage.insertAfter(activitesLegend);
+        $checkboxMessage.show();
 
         if (this.checked) {
             activitesLegend.css('color', 'black');
+            $checkboxMessage.hide();
             checks += 1;
             return false;
         }
@@ -279,37 +309,43 @@ submit.on('click', function () {
 
     //If 'credit card' is chosen, checks validation
     if (payment.val() === 'credit card') {
-        //If 'credit' validation is true, border and Label are turned black, and adds 1 to checks counter
-        //Else, border and label are turned red
+        //If 'credit' validation is true, border and Label are turned black, message is hidden, and adds 1 to checks counter
+        //Else, border and label are turned red and message is shown
         if (isValidCredit(credit)) {
             $('#cc-num').css('border-color', 'black');
             $('label[for="cc-num"]').css('color', 'black');
+            $creditMessage.hide();
             checks += 1;
         } else {
             $('#cc-num').css('border-color', 'red');
             $('label[for="cc-num"]').css('color', 'red');
+            $creditMessage.show();
         }
 
-        //If 'zip' validation is true, border and Label are turned black, and adds 1 to checks counter
-        //Else, border and label are turned red
+        //If 'zip' validation is true, border and Label are turned black, message is hidden, and adds 1 to checks counter
+        //Else, border and label are turned red and message is shown
         if (isValidZip(zip)) {
             $('#zip').css('border-color', 'black');
             $('label[for="zip"]').css('color', 'black');
+            $zipMessage.hide();
             checks += 1;
         } else {
             $('#zip').css('border-color', 'red');
             $('label[for="zip"]').css('color', 'red');
+            $zipMessage.show();
         }
 
-        //If 'cvv' validation is true, border and Label are turned black, and adds 1 to checks counter
-        //Else, border and label are turned red
+        //If 'cvv' validation is true, border and Label are turned black, message is hidden, and adds 1 to checks counter
+        //Else, border and label are turned red and message is shown
         if (isValidCvv(cvv)) {
             $('#cvv').css('border-color', 'black');
             $('label[for="cvv"]').css('color', 'black');
+            $cvvMessage.hide();
             checks += 1;
         } else {
             $('#cvv').css('border-color', 'red');
             $('label[for="cvv"]').css('color', 'red');
+            $cvvMessage.show();
         }
     }
 
