@@ -1,6 +1,7 @@
 ////****Global variables****\\\\
                                         
 const nameInput = $('#name');
+const emailInput = $('#mail');
 const otherText = $('#other-title');
 const title = $('#title');
 const design = $('#design');
@@ -28,7 +29,7 @@ $nameMessage.css('color', 'red');
 $nameMessage.insertAfter($('label[for="name"]'));
 $nameMessage.hide();
 
-const $emailMessage = $('<p>Please enter your emil.</p>').css('display','inline');
+const $emailMessage = $('<p>Please enter a valid email address.</p>').css('display','inline');
 $emailMessage.css('color', 'red');
 $emailMessage.insertAfter($('label[for="mail"]'));
 $emailMessage.hide();
@@ -122,6 +123,15 @@ const showTotal = (count) => {
 
 
 ////****Event Handlers****\\\\
+
+//
+// emailInput.on('input', function() {
+//     if (isValidEmail(email)) {
+//         $emailMessage.hide();
+//     } else {
+//         $emailMessage.show();
+//     }
+// });
 
 //Event that toggles 'other-title' text when 'other' is clicked
 title.on('click', function() {
@@ -334,7 +344,7 @@ submit.on('click', function () {
             $creditMessage.hide();
             checks += 1;
         } else if ($('#cc-num').val() === '') {
-            $creditMessage.text('Please enter a credit card number.');
+            $creditMessage.text('Please enter a valid credit card number.');
             $('#cc-num').css('border-color', 'red');
             $('label[for="cc-num"]').css('color', 'red');
             $creditMessage.show();
