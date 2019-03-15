@@ -7,13 +7,15 @@ const design = $('#design');
 const checkBoxes = $('.activities input');
 const activities = $('.activities');
 const activitesLegend = $('.activities legend');
-let count = 0;
 const payment = $('#payment');
 const credit = $('#credit-card');
 const payPal = $('#payPal');
 const bitCoin = $('#bitCoin');
 const selectOption = $('option[value="select_method"]');
+const colorSelect = $('#color');
+const colorLabel = $('label[for="color"]');
 const submit = $('button[type="submit"]');
+let count = 0;
 
 
 
@@ -21,32 +23,32 @@ const submit = $('button[type="submit"]');
 
 const $total = $('<h3>Total: </h3>');
 
-const $nameMessage = $('<p>Please enter your name</p>').css('display','inline');
+const $nameMessage = $('<p>Please enter your name.</p>').css('display','inline');
 $nameMessage.css('color', 'red');
 $nameMessage.insertAfter($('label[for="name"]'));
 $nameMessage.hide();
 
-const $emailMessage = $('<p>Please enter your emil</p>').css('display','inline');
+const $emailMessage = $('<p>Please enter your emil.</p>').css('display','inline');
 $emailMessage.css('color', 'red');
 $emailMessage.insertAfter($('label[for="mail"]'));
 $emailMessage.hide();
 
-const $checkboxMessage = $('<p>Please choose at least one activity</p>');
+const $checkboxMessage = $('<p>Please choose at least one activity.</p>');
 $checkboxMessage.css('color', 'red');
 $checkboxMessage.insertAfter(activitesLegend);
 $checkboxMessage.hide();
 
-const $creditMessage = $('<p>Please enter valid credit card number</p>').css('display','inline');
+let $creditMessage = $('<p>Please enter a number that is between 13 and 16 digits long.</p>').css('display','inline');
 $creditMessage.css('color', 'red');
 $creditMessage.insertAfter($('label[for="cc-num"]'));
 $creditMessage.hide();
 
-const $zipMessage = $('<p>Please enter valid zip code</p>').css('display','inline');
+const $zipMessage = $('<p>Please enter valid zip code.</p>').css('display','inline'); 
 $zipMessage.css('color', 'red');
 $zipMessage.insertAfter($('label[for="zip"]'));
 $zipMessage.hide();
 
-const $cvvMessage = $('<p>Please enter valid cvv number</p>').css('display','inline');
+const $cvvMessage = $('<p>Please enter valid cvv number.</p>').css('display','inline');
 $cvvMessage.css('color', 'red');
 $cvvMessage.insertAfter($('label[for="cvv"]'));
 $cvvMessage.hide();
@@ -98,6 +100,10 @@ payment.val('credit card');
 //Disables the 'select_method' option
 selectOption.prop("disabled", true);
 
+//Hides 'color select' and label at start
+colorSelect.hide();
+colorLabel.hide();
+
 
 
 ////****Functions****\\\\
@@ -126,12 +132,15 @@ title.on('click', function() {
 
 
 //Event that removes 'color' options on 'design' click
+//Shows 'color select' and label on option select 
 design.on('click', function() {
     if (this.value === 'js puns') {
         $('#color').val('cornflowerblue');
         $('option[value="tomato"]').toggle();
         $('option[value="steelblue"]').toggle();
         $('option[value="dimgrey"]').toggle();
+        colorSelect.show();
+        colorLabel.show();
     }
 
     if (this.value === 'heart js') {
@@ -139,6 +148,13 @@ design.on('click', function() {
         $('option[value="cornflowerblue"]').toggle();
         $('option[value="darkslategrey"]').toggle();
         $('option[value="gold"]').toggle();
+        colorSelect.show();
+        colorLabel.show();
+    }
+
+    if (this.value === 'Select Theme') {
+        colorSelect.hide();
+        colorLabel.hide();
     }
 });
 
@@ -310,13 +326,20 @@ submit.on('click', function () {
     //If 'credit card' is chosen, checks validation
     if (payment.val() === 'credit card') {
         //If 'credit' validation is true, border and Label are turned black, message is hidden, and adds 1 to checks counter
+        //Else if, credit card input is blank, message is changed
         //Else, border and label are turned red and message is shown
         if (isValidCredit(credit)) {
             $('#cc-num').css('border-color', 'black');
             $('label[for="cc-num"]').css('color', 'black');
             $creditMessage.hide();
             checks += 1;
+        } else if ($('#cc-num').val() === '') {
+            $creditMessage.text('Please enter a credit card number.');
+            $('#cc-num').css('border-color', 'red');
+            $('label[for="cc-num"]').css('color', 'red');
+            $creditMessage.show();
         } else {
+            $creditMessage.text('Please enter a number that is between 13 and 16 digits long.');
             $('#cc-num').css('border-color', 'red');
             $('label[for="cc-num"]').css('color', 'red');
             $creditMessage.show();
