@@ -65,7 +65,7 @@ $cvvMessage.hide();
 ////****Validators****\\\\
 
 const isValidName = (name) => {
-    return /^[a-z]+$/i.test(name);
+    return /^[a-z `'-]+$/i.test(name);
 }
 
 const isValidEmail = (email) => {
