@@ -24,31 +24,37 @@ let count = 0;
 
 const $total = $('<h3>Total: </h3>');
 
+//Create error message for 'name' validation
 const $nameMessage = $('<p>Please enter your name.</p>').css('display','inline');
 $nameMessage.css('color', 'red');
 $nameMessage.insertAfter($('label[for="name"]'));
 $nameMessage.hide();
 
+//Create error message for 'email' validation
 const $emailMessage = $('<p>Please enter a valid email address.</p>').css('display','inline');
 $emailMessage.css('color', 'red');
 $emailMessage.insertAfter($('label[for="mail"]'));
 $emailMessage.hide();
 
+//Create error message for checkboxes
 const $checkboxMessage = $('<p>Please choose at least one activity.</p>');
 $checkboxMessage.css('color', 'red');
 $checkboxMessage.insertAfter(activitesLegend);
 $checkboxMessage.hide();
 
+//Create error message for 'credit' validation
 let $creditMessage = $('<p>Please enter a number that is between 13 and 16 digits long.</p>').css('display','inline');
 $creditMessage.css('color', 'red');
 $creditMessage.insertAfter($('label[for="cc-num"]'));
 $creditMessage.hide();
 
+//Create error message for 'zip' validation
 const $zipMessage = $('<p>Please enter valid zip code.</p>').css('display','inline'); 
 $zipMessage.css('color', 'red');
 $zipMessage.insertAfter($('label[for="zip"]'));
 $zipMessage.hide();
 
+//Create error message for 'cvv' validation
 const $cvvMessage = $('<p>Please enter valid cvv number.</p>').css('display','inline');
 $cvvMessage.css('color', 'red');
 $cvvMessage.insertAfter($('label[for="cvv"]'));
@@ -124,14 +130,31 @@ const showTotal = (count) => {
 
 ////****Event Handlers****\\\\
 
-//
-// emailInput.on('input', function() {
-//     if (isValidEmail(email)) {
-//         $emailMessage.hide();
-//     } else {
-//         $emailMessage.show();
-//     }
-// });
+//Event that dynamically validates the 'name input'
+nameInput.on('input', function() {
+    const name = $('#name').val();
+
+    if (isValidName(name) || name === "") {
+        $('#name').css('border-color', 'black');
+        $('label[for="name"]').css('color', 'black');
+        $nameMessage.hide();
+    } else {
+        $nameMessage.show();
+    }
+});
+
+//Event that dynamically validates the 'email input'
+emailInput.on('input', function() {
+    const email = $('#mail').val();
+
+    if (isValidEmail(email) || email === "") {
+        $('#mail').css('border-color', 'black');
+        $('label[for="mail"]').css('color', 'black');
+        $emailMessage.hide();
+    } else {
+        $emailMessage.show();
+    }
+});
 
 //Event that toggles 'other-title' text when 'other' is clicked
 title.on('click', function() {
